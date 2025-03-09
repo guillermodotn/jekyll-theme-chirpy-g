@@ -7,6 +7,7 @@ A minimal, responsive, and feature-rich Jekyll theme for technical writing.
 [![CI](https://img.shields.io/github/actions/workflow/status/guillermodotn/jekyll-theme-chirpy-g/ci.yml?logo=github)][ci]
 [![GitHub license](https://img.shields.io/github/license/guillermodotn/jekyll-theme-chirpy-g?color=goldenrod)][license]
 [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy-g?&logo=RubyGems&logoColor=ghostwhite&label=gem&color=red)][gem]
+[![ChirpyG](https://img.shields.io/badge/Jekyll%20Theme-ChirpyG-blue?style=flat&logo=jekyll)][chirpyg]
 
 > [!NOTE]
 > This repository is a fork of the **[jekyll-theme-chirpy][upstream]** theme for [Jekyll][jekyllrb]. It extends the original theme by adding a tab with a graph view to visualize the relationships between posts and tags.
@@ -51,6 +52,7 @@ Contributions are welcome to this repository for improvements, features, or bug 
 
 Contributions are greatly appreciated!
 
+[chirpyg]: https://github.com/guillermodotn/jekyll-theme-chirpy-g
 [upstream]: https://github.com/cotes2020/jekyll-theme-chirpyv
 [gem]: https://rubygems.org/gems/jekyll-theme-chirpy-g
 [wiki]: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
