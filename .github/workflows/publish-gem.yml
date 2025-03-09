@@ -1,0 +1,36 @@
+name: Publish Gem
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Runs only when a version tag (e.g., v1.2.3) is pushed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'  # Adjust to your gem's Ruby version
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Build gem
+        run: gem build *.gemspec
+
+      - name: Publish gem to RubyGems
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: |
+          mkdir -p ~/.gem
+          echo "---" > ~/.gem/credentials
+          echo ":rubygems_api_key: ${RUBYGEMS_API_KEY}" >> ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          gem push *.gem
