@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'  # Adjust to your gem's Ruby version
+          ruby-version: '3.1'  # Adjust to your gem's Ruby version
           bundler-cache: true
 
       - name: Install dependencies
