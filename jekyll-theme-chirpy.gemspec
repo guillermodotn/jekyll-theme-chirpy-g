@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0").select { |f|
     f.match(%r!^((_(includes|layouts|sass|(data\/(locales|origin)))|assets)\/|README|LICENSE)!i)
-  } + Dir.glob("assets/js/dist/*")
+  } + Dir.glob("assets/js/dist/*") + Dir.glob("_sass/vendors/*")
 
   spec.metadata = {
     "source_code_uri"   => "https://github.com/guillermodotn/jekyll-theme-chirpy-g",
