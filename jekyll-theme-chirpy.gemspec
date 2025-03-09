@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
-  spec.name          = "jekyll-theme-chirpy"
-  spec.version       = "7.6.0"
-  spec.authors       = ["Cotes Chung"]
-  spec.email         = ["cotes.chung@gmail.com"]
+  spec.name          = "jekyll-theme-chirpy-g"
+  spec.version       = "1.0.0"
+  spec.authors       = ["Cotes Chung", "guillermodotn"]
+  spec.email         = ["cotes.chung@gmail.com", "guillerm0.n@outlook.es"]
 
   spec.summary       = "A minimal, responsive, and feature-rich Jekyll theme for technical writing."
-  spec.homepage      = "https://github.com/cotes2020/jekyll-theme-chirpy"
+  spec.homepage      = "https://github.com/guillermodotn/jekyll-theme-chirpy-g"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").select { |f|
@@ -15,12 +15,7 @@ Gem::Specification.new do |spec|
   }
 
   spec.metadata = {
-    "bug_tracker_uri"   => "https://github.com/cotes2020/jekyll-theme-chirpy/issues",
-    "documentation_uri" => "https://github.com/cotes2020/jekyll-theme-chirpy/#readme",
-    "homepage_uri"      => "https://cotes2020.github.io/chirpy-demo",
-    "source_code_uri"   => "https://github.com/cotes2020/jekyll-theme-chirpy",
-    "wiki_uri"          => "https://github.com/cotes2020/jekyll-theme-chirpy/wiki",
-    "plugin_type"       => "theme"
+    "source_code_uri"   => "https://github.com/guillermodotn/jekyll-theme-chirpy-g",
   }
 
   spec.required_ruby_version = "~> 3.1"
