@@ -1,4 +1,4 @@
-import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, zoomIdentity } from "d3";
+import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, zoomIdentity } from 'd3';
 
 const d3 = {
   select,
@@ -17,7 +17,7 @@ const tags = new Set();  // To track unique tags
 
 // Fetch the JSON graph data
 function loadGraphData() {
-    fetch("/assets/js/data/graph.json")
+    fetch('/assets/js/data/graph.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(post => {
@@ -32,53 +32,53 @@ function loadGraphData() {
         });
         initializeGraph();  // Initialize the graph after the data is fetched
     })
-    .catch(error => console.error("Error loading JSON:", error));
+    .catch(error => console.error('Error loading JSON:', error));
 }
 
 // Initialize the graph (D3 code)
 function initializeGraph() {
   // Set up SVG and simulation
-  const svg = d3.select("svg");
+  const svg = d3.select('svg');
   const width = svg.node().getBoundingClientRect().width;
   const height = svg.node().getBoundingClientRect().height;
 
   const zoomBehavior = d3.zoom()
     .scaleExtent([0.3, 5]) // Set zoom-out and zoom-in limits
-    .on("zoom", (event) => {
-      container.attr("transform", event.transform); // Apply zoom transform
+    .on('zoom', (event) => {
+      container.attr('transform', event.transform); // Apply zoom transform
     });
 
   svg.call(zoomBehavior);
 
-  const container = svg.append("g");
+  const container = svg.append('g');
 
   // Create a force simulation to position the nodes
   const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id).distance(100))
-    .force("charge", d3.forceManyBody().strength(-200))
-    .force("center", d3.forceCenter(width / 2, height / 2));  // Center the graph initially
+    .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+    .force('charge', d3.forceManyBody().strength(-200))
+    .force('center', d3.forceCenter(width / 2, height / 2));  // Center the graph initially
 
   // Create link elements
-  const link = container.append("g")
-    .attr("class", "links")
-    .selectAll("line")
+  const link = container.append('g')
+    .attr('class', 'links')
+    .selectAll('line')
     .data(links)
-    .enter().append("line")
-    .attr("class", "link");
+    .enter().append('line')
+    .attr('class', 'link');
 
   // Create node elements
-  const node = container.append("g")
-  .attr("class", "nodes")
-  .selectAll("circle")
+  const node = container.append('g')
+  .attr('class', 'nodes')
+  .selectAll('circle')
   .data(nodes)
-  .enter().append("circle")
-  .attr("class", d => d.type === 'post' ? "post-node" : "tag-node")
-  .attr("r", d => d.type === 'post' ? 8 : 4)
+  .enter().append('circle')
+  .attr('class', d => d.type === 'post' ? 'post-node' : 'tag-node')
+  .attr('r', d => d.type === 'post' ? 8 : 4)
   .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended))
-  .on("click", (event, d) => {
+          .on('start', dragstarted)
+          .on('drag', dragged)
+          .on('end', dragended))
+  .on('click', (event, d) => {
     if (d.type === 'post' && d.url) {
       window.location.href = d.url;  // Redirect to the post URL
     }if (d.type === 'tag') {
@@ -87,30 +87,30 @@ function initializeGraph() {
   });
 
   // Add text labels for tag nodes
-  const labels = container.append("g")
-    .attr("class", "node-labels")
-    .selectAll("text")
+  const labels = container.append('g')
+    .attr('class', 'node-labels')
+    .selectAll('text')
     .data(nodes)
-    .enter().append("text")
-    .attr("class", d => d.type === 'post' ? "post-label" : "tag-label")
-    .attr("dy", "-10px") // Position the label above the node
+    .enter().append('text')
+    .attr('class', d => d.type === 'post' ? 'post-label' : 'tag-label')
+    .attr('dy', '-10px') // Position the label above the node
     .text(d => d.id);
 
   // Update positions on each simulation tick
-  simulation.on("tick", () => {
+  simulation.on('tick', () => {
     link
-      .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y);
+      .attr('x1', d => d.source.x)
+      .attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x)
+      .attr('y2', d => d.target.y);
     
     node
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y);
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y);
     
     labels
-      .attr("x", d => d.x)
-      .attr("y", d => d.y);
+      .attr('x', d => d.x)
+      .attr('y', d => d.y);
   });
 
   // Drag event handlers
@@ -151,7 +151,7 @@ function initializeGraph() {
   }
 
   // Run the fit function once the simulation settles
-  simulation.on("end", () => {
+  simulation.on('end', () => {
     fitGraphToContainer(width, height);
   });
 
@@ -171,7 +171,7 @@ function initializeGraph() {
   });
 
   // Ensure touch events for drag work on mobile devices
-  svg.on("touchstart", function(event) {
+  svg.on('touchstart', function(event) {
     event.preventDefault(); // Prevent default to avoid zoom issues
   });
 }
@@ -181,8 +181,8 @@ function slugify(str) {
   return str
     .toString()
     .toLowerCase()
-    .normalize("NFD") // Remove accents
-    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+    .normalize('NFD') // Remove accents
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
     .replace(/[^a-z0-9 -]/g, '') // Remove invalid characters
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
