@@ -11,7 +11,7 @@ const DIST = 'assets/js/dist';
 const banner = `/*!
  * ${pkg.name} v${pkg.version} | © ${pkg.since} ${pkg.author} | ${pkg.license} Licensed | ${pkg.homepage}
  */`;
-const frontmatter = `---\npermalink: /:basename\n---\n`;
+const frontmatter = '---\npermalink: /:basename\n---\n';
 const isProd = process.env.BUILD === 'production';
 
 let hasWatched = false;
@@ -81,7 +81,7 @@ export default [
   build('page'),
   build('post'),
   build('misc'),
-  build('theme', { src: `${SRC_DEFAULT}/modules`, outputName: 'Theme' }),
+  build('theme', { outputName: 'Theme' }),
   build('app', { src: SRC_PWA, jekyll: true }),
   build('sw', { src: SRC_PWA, jekyll: true })
 ];
