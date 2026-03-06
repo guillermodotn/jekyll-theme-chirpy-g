@@ -88,6 +88,28 @@ function initializeGraph() {
       } else if (d.type === 'tag') {
         window.location.href = generateTagUrl(d.id);
       }
+    })
+    .on('mouseover', function(event, d) {
+      const connectedIds = new Set();
+      connectedIds.add(d.id);
+
+      links.forEach(l => {
+        const sourceId = typeof l.source === 'object' ? l.source.id : l.source;
+        const targetId = typeof l.target === 'object' ? l.target.id : l.target;
+        if (sourceId === d.id) connectedIds.add(targetId);
+        if (targetId === d.id) connectedIds.add(sourceId);
+      });
+
+      nodeGroup.classed('dimmed', n => !connectedIds.has(n.id));
+      link.classed('dimmed', l => {
+        const sourceId = typeof l.source === 'object' ? l.source.id : l.source;
+        const targetId = typeof l.target === 'object' ? l.target.id : l.target;
+        return sourceId !== d.id && targetId !== d.id;
+      });
+    })
+    .on('mouseout', () => {
+      nodeGroup.classed('dimmed', false);
+      link.classed('dimmed', false);
     });
 
   // Add labels to each group
