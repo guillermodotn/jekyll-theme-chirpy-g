@@ -90,21 +90,21 @@
   --search-tag-bg: #f8f9fa;
 
   /* Graph */
-  --graph-border: #dee2e6;
-  --graph-tag-node-color: #f8f9fa;
-  --graph-post-node-color: #0056b2;
-  --graph-tag-node-hover-color: #dee2e6;
+  --graph-border: #adb5bd;
+  --graph-tag-node-color: #e9ecef;
+  --graph-post-node-color: #0056b3;
+  --graph-tag-node-hover-color: #ced4da;
   --graph-post-node-hover-color: #0d6efd;
-  --graph-edges-color: #dee2e6;
-  --graph-edges-hover-color: #004085;
-  --graph-tag-node-stroke-color: #dee2e6;
+  --graph-edges-color: #adb5bd;
+  --graph-edges-hover-color: #0056b3;
+  --graph-tag-node-stroke-color: #ced4da;
   --graph-post-node-stroke-color: var(--main-bg);
   --graph-tag-node-stroke-hover-color: var(--tag-node-hover-color);
   --graph-post-node-stroke-hover-color: var(--post-node-hover-color);
-  --graph-tag-label-color: #585858;
-  --graph-post-label-color: #34343c;
-  --graph-tooltip-bg: #ffffff;
-  --graph-tooltip-text: #34343c;
+  --graph-tag-label-color: #495057;
+  --graph-post-label-color: #212529;
+  --graph-tooltip-bg: var(--main-bg);
+  --graph-tooltip-text: var(--text-color);
   
 
 
