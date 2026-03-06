@@ -89,21 +89,21 @@
   --search-tag-bg: #292828;
 
   /* Graph */
-  --graph-border: #3B4F58;
-  --graph-tag-node-color: #f8f9fa;
-  --graph-post-node-color: #8AB4F8;
-  --graph-tag-node-hover-color: #dee2e6;
-  --graph-post-node-hover-color: #0d6efd;
-  --graph-edges-color: #0056b2;
-  --graph-edges-hover-color: #004085;
-  --graph-tag-node-stroke-color: var(--main-bg);
-  --graph-post-node-stroke-color: var(--main-bg);
+  --graph-border: #5c6370;
+  --graph-tag-node-color: #3b4048;
+  --graph-post-node-color: #8ab4f8;
+  --graph-tag-node-hover-color: #5c6370;
+  --graph-post-node-hover-color: #aecbfa;
+  --graph-edges-color: #5c6370;
+  --graph-edges-hover-color: #8ab4f8;
+  --graph-tag-node-stroke-color: #282c34;
+  --graph-post-node-stroke-color: #282c34;
   --graph-tag-node-stroke-hover-color: var(--tag-node-hover-color);
   --graph-post-node-stroke-hover-color: var(--post-node-hover-color);
-  --graph-tag-label-color: #585858;
-  --graph-post-label-color: #34343c;
-  --graph-tooltip-bg: #282828;
-  --graph-tooltip-text: #e0e0e0;
+  --graph-tag-label-color: #abb2bf;
+  --graph-post-label-color: #e0e6f1;
+  --graph-tooltip-bg: #282c34;
+  --graph-tooltip-text: #e0e6f1;
 
   /* Categories */
   --categories-border: rgb(64 66 69 / 50%);
