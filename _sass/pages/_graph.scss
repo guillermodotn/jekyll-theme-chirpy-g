@@ -10,6 +10,43 @@
     align-items: center;
 }
 
+.graph-legend {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    gap: 16px;
+    background: var(--graph-tooltip-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--graph-tooltip-text);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+    z-index: 5;
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .legend-post {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--graph-post-node-color);
+        border: 1.5px solid var(--graph-post-node-stroke-color);
+    }
+
+    .legend-tag {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--graph-tag-node-color);
+        border: 1.5px solid var(--graph-tag-node-stroke-color);
+    }
+}
+
 .post-node {
     r: 10;
     fill: var(--graph-post-node-color);
