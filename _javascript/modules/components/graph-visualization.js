@@ -13,24 +13,33 @@ const d3 = {
 
 const nodes = [];
 const links = [];
-const tags = new Set();  // To track unique tags
+const tags = new Set();
+const tagCounts = {};
+const postsData = {};
 
 // Fetch the JSON graph data
 function loadGraphData() {
     fetch('/assets/js/data/graph.json')
     .then(response => response.json())
     .then(data => {
-        data.forEach(post => {
-        nodes.push({ id: post.id, type: 'post', url: post.url });
-        post.tags.forEach(tag => {
-            if (!tags.has(tag)) {
-            nodes.push({ id: tag, type: 'tag' });
-            tags.add(tag);  // Add the tag to the set to avoid duplicates
+        data.posts.forEach(post => {
+            postsData[post.id] = { tags: post.tags, date: post.date, url: post.url };
+            nodes.push({ id: post.id, type: 'post', url: post.url, tags: post.tags, date: post.date });
+            post.tags.forEach(tag => {
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                if (!tags.has(tag)) {
+                    nodes.push({ id: tag, type: 'tag', count: 0 });
+                    tags.add(tag);
+                }
+                links.push({ source: post.id, target: tag, label: tag });
+            });
+        });
+        nodes.forEach(n => {
+            if (n.type === 'tag') {
+                n.count = tagCounts[n.id] || 0;
             }
-            links.push({ source: post.id, target: tag, label: tag });
         });
-        });
-        initializeGraph();  // Initialize the graph after the data is fetched
+        initializeGraph();
     })
     .catch(error => console.error('Error loading JSON:', error));
 }
@@ -74,6 +83,8 @@ function initializeGraph() {
     .enter().append('g')
     .attr('class', 'node-group');
 
+  const tooltip = d3.select('#graph-tooltip');
+
   // Add circles to each group
   nodeGroup.append('circle')
     .attr('class', d => d.type === 'post' ? 'post-node' : 'tag-node')
@@ -106,10 +117,19 @@ function initializeGraph() {
         const targetId = typeof l.target === 'object' ? l.target.id : l.target;
         return sourceId !== d.id && targetId !== d.id;
       });
+
+      tooltip
+        .style('opacity', 1)
+        .html(d.type === 'post'
+          ? `<strong>${d.id}</strong><br><span class="tooltip-date">${d.date || ''}</span><br><span class="tooltip-tags">${d.tags ? d.tags.join(', ') : ''}</span><br><span class="tooltip-hint">Click to view</span>`
+          : `<strong>${d.id}</strong><br><span class="tooltip-count">${d.count} post${d.count !== 1 ? 's' : ''}</span>`)
+        .style('left', (event.pageX + 10) + 'px')
+        .style('top', (event.pageY - 10) + 'px');
     })
     .on('mouseout', () => {
       nodeGroup.classed('dimmed', false);
       link.classed('dimmed', false);
+      tooltip.style('opacity', 0);
     });
 
   // Add labels to each group

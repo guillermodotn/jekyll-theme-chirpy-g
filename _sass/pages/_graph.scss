@@ -38,7 +38,6 @@
     font-size: 12px;
     fill: var(--text-color);
     opacity: 0;
-    transition: opacity 0.2s ease;
     pointer-events: none;
 }
   
@@ -47,13 +46,7 @@
     font-size: 12px;
     fill: var(--text-color);
     opacity: 0;
-    transition: opacity 0.2s ease;
     pointer-events: none;
-}
-
-.node-group:hover .post-label,
-.node-group:hover .tag-label {
-    opacity: 1;
 }
 
 .link {
@@ -69,4 +62,40 @@
 
 .link.dimmed {
     stroke-opacity: 0.1;
+}
+
+.graph-tooltip {
+    position: fixed;
+    background: var(--graph-tooltip-bg);
+    color: var(--graph-tooltip-text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+    line-height: 1.4;
+
+    .tooltip-date {
+        opacity: 0.7;
+        font-size: 11px;
+    }
+
+    .tooltip-tags {
+        font-size: 11px;
+        opacity: 0.8;
+    }
+
+    .tooltip-hint {
+        font-size: 10px;
+        opacity: 0.5;
+        font-style: italic;
+    }
+
+    .tooltip-count {
+        font-size: 11px;
+        opacity: 0.8;
+    }
 }
