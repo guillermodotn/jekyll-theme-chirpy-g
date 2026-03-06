@@ -1,4 +1,4 @@
-import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, zoomIdentity } from 'd3';
+import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, zoomIdentity } from 'd3';
 
 const d3 = {
   select,
@@ -8,6 +8,7 @@ const d3 = {
   forceLink,
   forceManyBody,
   forceCenter,
+  forceCollide,
   zoomIdentity
 };
 
@@ -63,9 +64,10 @@ function initializeGraph() {
 
   // Create a force simulation to position the nodes
   const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(100))
-    .force('charge', d3.forceManyBody().strength(-200))
-    .force('center', d3.forceCenter(width / 2, height / 2));  // Center the graph initially
+    .force('link', d3.forceLink(links).id(d => d.id).distance(120))
+    .force('charge', d3.forceManyBody().strength(-400))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collide', d3.forceCollide().radius(d => d.type === 'post' ? 20 : 12));
 
   // Create link elements
   const link = container.append('g')
@@ -81,7 +83,11 @@ function initializeGraph() {
     .selectAll('g')
     .data(nodes)
     .enter().append('g')
-    .attr('class', 'node-group');
+    .attr('class', 'node-group')
+    .call(d3.drag()
+      .on('start', dragstarted)
+      .on('drag', dragged)
+      .on('end', dragended));
 
   const tooltip = d3.select('#graph-tooltip');
 
@@ -89,10 +95,6 @@ function initializeGraph() {
   nodeGroup.append('circle')
     .attr('class', d => d.type === 'post' ? 'post-node' : 'tag-node')
     .attr('r', d => d.type === 'post' ? 8 : 4)
-    .call(d3.drag()
-      .on('start', dragstarted)
-      .on('drag', dragged)
-      .on('end', dragended))
     .on('click', (event, d) => {
       if (d.type === 'post' && d.url) {
         window.location.href = d.url;
