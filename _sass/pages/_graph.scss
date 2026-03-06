@@ -37,12 +37,23 @@
     text-anchor: middle;
     font-size: 12px;
     fill: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
 }
   
 .tag-label {
     text-anchor: middle;
     font-size: 12px;
     fill: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.node-group:hover .post-label,
+.node-group:hover .tag-label {
+    opacity: 1;
 }
 
 .link {

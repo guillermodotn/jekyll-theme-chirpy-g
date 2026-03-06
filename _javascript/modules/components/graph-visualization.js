@@ -66,34 +66,34 @@ function initializeGraph() {
     .enter().append('line')
     .attr('class', 'link');
 
-  // Create node elements
-  const node = container.append('g')
-  .attr('class', 'nodes')
-  .selectAll('circle')
-  .data(nodes)
-  .enter().append('circle')
-  .attr('class', d => d.type === 'post' ? 'post-node' : 'tag-node')
-  .attr('r', d => d.type === 'post' ? 8 : 4)
-  .call(d3.drag()
-          .on('start', dragstarted)
-          .on('drag', dragged)
-          .on('end', dragended))
-  .on('click', (event, d) => {
-    if (d.type === 'post' && d.url) {
-      window.location.href = d.url;  // Redirect to the post URL
-    }if (d.type === 'tag') {
-      window.location.href = generateTagUrl(d.id);
-    } 
-  });
-
-  // Add text labels for tag nodes
-  const labels = container.append('g')
-    .attr('class', 'node-labels')
-    .selectAll('text')
+  // Create node groups (each contains circle + label)
+  const nodeGroup = container.append('g')
+    .attr('class', 'nodes')
+    .selectAll('g')
     .data(nodes)
-    .enter().append('text')
+    .enter().append('g')
+    .attr('class', 'node-group');
+
+  // Add circles to each group
+  nodeGroup.append('circle')
+    .attr('class', d => d.type === 'post' ? 'post-node' : 'tag-node')
+    .attr('r', d => d.type === 'post' ? 8 : 4)
+    .call(d3.drag()
+      .on('start', dragstarted)
+      .on('drag', dragged)
+      .on('end', dragended))
+    .on('click', (event, d) => {
+      if (d.type === 'post' && d.url) {
+        window.location.href = d.url;
+      } else if (d.type === 'tag') {
+        window.location.href = generateTagUrl(d.id);
+      }
+    });
+
+  // Add labels to each group
+  nodeGroup.append('text')
     .attr('class', d => d.type === 'post' ? 'post-label' : 'tag-label')
-    .attr('dy', '-10px') // Position the label above the node
+    .attr('dy', '-12px')
     .text(d => d.id);
 
   // Update positions on each simulation tick
@@ -103,14 +103,9 @@ function initializeGraph() {
       .attr('y1', d => d.source.y)
       .attr('x2', d => d.target.x)
       .attr('y2', d => d.target.y);
-    
-    node
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y);
-    
-    labels
-      .attr('x', d => d.x)
-      .attr('y', d => d.y);
+
+    nodeGroup
+      .attr('transform', d => `translate(${d.x},${d.y})`);
   });
 
   // Drag event handlers
