@@ -59,4 +59,14 @@
 .link {
     stroke: var(--graph-edges-color);
     stroke-opacity: 0.5;
+    transition: stroke-opacity 0.2s ease;
+}
+
+.node-group.dimmed {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+}
+
+.link.dimmed {
+    stroke-opacity: 0.1;
 }
