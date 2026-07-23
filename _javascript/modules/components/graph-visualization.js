@@ -1,4 +1,4 @@
-import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, zoomIdentity } from 'd3';
+import { select, zoom, drag, forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, forceX, forceY, zoomIdentity } from 'd3';
 
 const d3 = {
   select,
@@ -9,6 +9,8 @@ const d3 = {
   forceManyBody,
   forceCenter,
   forceCollide,
+  forceX,
+  forceY,
   zoomIdentity
 };
 
@@ -64,10 +66,12 @@ function initializeGraph() {
 
   // Create a force simulation to position the nodes
   const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(120))
-    .force('charge', d3.forceManyBody().strength(-400))
+    .force('link', d3.forceLink(links).id(d => d.id).distance(70))
+    .force('charge', d3.forceManyBody().strength(-200))
     .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide().radius(d => d.type === 'post' ? 20 : 12));
+    .force('collide', d3.forceCollide().radius(d => d.type === 'post' ? 15 : 9))
+    .force('x', d3.forceX(width / 2).strength(0.05))
+    .force('y', d3.forceY(height / 2).strength(0.05));
 
   // Create link elements
   const link = container.append('g')
