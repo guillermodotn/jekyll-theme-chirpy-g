@@ -74,7 +74,7 @@
     text-anchor: middle;
     font-size: 12px;
     fill: var(--text-color);
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
 }
   
@@ -82,7 +82,7 @@
     text-anchor: middle;
     font-size: 12px;
     fill: var(--text-color);
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
 }
 
@@ -95,6 +95,10 @@
 .node-group.dimmed {
     opacity: 0.3;
     transition: opacity 0.2s ease;
+
+    text {
+        opacity: 0;
+    }
 }
 
 .link.dimmed {

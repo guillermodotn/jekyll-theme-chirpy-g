@@ -66,10 +66,10 @@ function initializeGraph() {
 
   // Create a force simulation to position the nodes
   const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(70))
-    .force('charge', d3.forceManyBody().strength(-200))
+    .force('link', d3.forceLink(links).id(d => d.id).distance(90))
+    .force('charge', d3.forceManyBody().strength(-300))
     .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide().radius(d => d.type === 'post' ? 15 : 9))
+    .force('collide', d3.forceCollide().radius(d => d.type === 'post' ? 25 : 18))
     .force('x', d3.forceX(width / 2).strength(0.05))
     .force('y', d3.forceY(height / 2).strength(0.05));
 
